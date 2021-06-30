@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
-import {TouchableOpacity,  Alert , Button, StyleSheet, Text, View, FlatList, Image } from 'react-native';
+import {TouchableOpacity,  Alert , Button, StyleSheet, Text, View, FlatList, Image, ImageBackground } from 'react-native';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import Widget from './Widget';
-import { Divider, Searchbar } from 'react-native-paper';
-
-
+import { Divider, Drawer, Searchbar, ProgressBar, Colors, Surface, Chip } from 'react-native-paper';
  
+
+
+
  
 
 
 export default class App extends Component {
 
-  
 
     constructor() {
       super()
@@ -33,31 +33,43 @@ export default class App extends Component {
   
      
       return ( 
-          
+
+
+        <ImageBackground style={styles.container} source={require('./download.png')}>
+
         
-         <View style={{ flex: 1, flexDirection: 'row', marginLeft: 10, marginTop: 70}}>
+         <Surface style={{ flex: 1, color: '#ffff', flexDirection: 'row', marginLeft: 10, marginTop: 70,  padding: 8, elevation: 4}}>
         
     
         <Image 
-        style={{ width: 100, height: 150, margin: 7}}
+        style={{ width: 100, height: 150, margin: 7 }}
         source={{ uri: item.image }}/>
-  
+      
   
         <View style={{ flex: 1, justifyConntent: 'center'}}> 
          
-        <Text style={{fontSize: 18, color: 'green', marginBottom: 8}}>
-           {item.book_title}  
-          </Text>
-  
-    
-          <Text style={{ fontSize: 16, color: 'red'}}>
-            {item.author}
-          </Text>
-          <Text style={{ fontSize: 10, color: 'black', marginTop: 5}}>
-            {item.date}
-  
            
-         </Text>
+  
+ 
+          <Drawer.Item
+     style={{ backgroundColor: '#B19CD9' }}
+     label={item.book_title}  
+   />
+   <Text>  </Text>
+
+
+    
+          <Text style={{ fontSize: 10, color: 'red'}}>
+          <Chip style={{ height: 34, width: 180 }}icon="star" onPress={() => console.log('Pressed')}> 
+{item.author}          </Chip>
+
+          </Text>
+          <Text> </Text>
+          <Chip style={{ height: 34, width: 180 }}icon="clock" onPress={() => console.log('Pressed')}> 
+          {item.date} 
+          </Chip>
+
+        
  
        
          <TouchableOpacity  
@@ -75,7 +87,9 @@ export default class App extends Component {
   
       </View>
       
-    </View>
+    </Surface>
+    </ImageBackground>
+ 
     
       )
   }
@@ -120,5 +134,7 @@ export default class App extends Component {
       padding: 15,
   
      },
+
+     
   });
   
