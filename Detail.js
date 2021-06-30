@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import {TouchableOpacity ,  StyleSheet, Text, View, FlatList, Image } from 'react-native';
+import {TouchableOpacity ,  StyleSheet, View, FlatList, Image, ImageBackground, Text } from 'react-native';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { Button, Card, Title, Paragraph, ProgressBar, Colors, TouchableRipple } from 'react-native-paper';
+import { Button, Card, Title, Paragraph, ProgressBar, Colors, TouchableRipple, Chip } from 'react-native-paper';
 import { Link } from '@react-navigation/native';
+import  Search  from './Search';
 
+ 
 
 
 export default class App extends Component {
@@ -21,38 +23,52 @@ export default class App extends Component {
       }
     }
   
+    
    
     renderItem = ({ item }) => {
   
      
       return ( 
-        <Card style={{ marginBottom: 20, marginTop: 80 }}>
 
-        <TouchableRipple
-    onPress={() => console.log('Pressed')}
-    rippleColor="rgba(0, 0, 0, .32)"
-  >
-        
-      <Card.Cover style={{ width: 350, height: 180}}
-        source={{ uri: item.image }} />
+  
+        <ImageBackground style={styles.container} source={require('./background.gif')}>
+          <Card style={{ marginBottom: 20, marginTop: 80, }}>
 
-  </TouchableRipple>
-        
-        <Link to="/Classification">
-        <Card.Title title={item.book_title}> 
-        </Card.Title>
-        </Link>
-        <Card.Content>
-        <Title>{item.author}</Title>
+            <TouchableRipple onPress={() => console.log('Pressed')} rippleColor="rgba(0, 0, 0, .32)">
+              <Link to="/Classification">
+                <Card.Cover style={{ width: 350, height: 180 }} source={{ uri: item.image }} />
+              </Link>
+            </TouchableRipple>
 
-        <Paragraph>{item.date}</Paragraph>
+
+
+            <Card.Title title={item.book_title}>
+              <Text> </Text>
+
+            </Card.Title>
+
+            <Card.Content>
+
+
+              <Chip icon="book" onPress={() => console.log('Pressed')}> {item.author} </Chip>
+              <Text> </Text>
+              <ProgressBar progress={0.35} color={Colors.red800} />
+              <Text> </Text>
+              <Chip icon="clock" onPress={() => console.log('Pressed')}> {item.date} </Chip>
+
+
+            </Card.Content>
+            <Text>   </Text>
+
+            <Button title="Read More" onPress={() => {
+    alert(item.details);
+  }}>Read More </Button>
+          </Card>
+        </ImageBackground> 
  
-        </Card.Content>
- 
-    
-        </Card>
        )
   }
+
       
   
     componentDidMount() {
